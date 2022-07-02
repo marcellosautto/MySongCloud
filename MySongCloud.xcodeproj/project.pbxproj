@@ -14,6 +14,9 @@
 		4B7BF5372871038C00BACA95 /* MySongCloudTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5362871038C00BACA95 /* MySongCloudTests.swift */; };
 		4B7BF5412871038C00BACA95 /* MySongCloudUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5402871038C00BACA95 /* MySongCloudUITests.swift */; };
 		4B7BF5432871038C00BACA95 /* MySongCloudUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5422871038C00BACA95 /* MySongCloudUITestsLaunchTests.swift */; };
+		4B7BF5532871047300BACA95 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5522871047300BACA95 /* HomeView.swift */; };
+		4B7BF5552871051500BACA95 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5542871051500BACA95 /* SongListView.swift */; };
+		4B7BF5582871084900BACA95 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5572871084900BACA95 /* StudioView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		4B7BF53C2871038C00BACA95 /* MySongCloudUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MySongCloudUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7BF5402871038C00BACA95 /* MySongCloudUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySongCloudUITests.swift; sourceTree = "<group>"; };
 		4B7BF5422871038C00BACA95 /* MySongCloudUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySongCloudUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		4B7BF5522871047300BACA95 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4B7BF5542871051500BACA95 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
+		4B7BF5572871084900BACA95 /* StudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,9 @@
 		4B7BF5242871038A00BACA95 /* MySongCloud */ = {
 			isa = PBXGroup;
 			children = (
+				4B7BF551287103B900BACA95 /* ViewModels */,
+				4B7BF550287103B400BACA95 /* Models */,
+				4B7BF54F287103AD00BACA95 /* Views */,
 				4B7BF5252871038A00BACA95 /* MySongCloudApp.swift */,
 				4B7BF5272871038A00BACA95 /* ContentView.swift */,
 				4B7BF5292871038C00BACA95 /* Assets.xcassets */,
@@ -125,6 +134,30 @@
 				4B7BF5422871038C00BACA95 /* MySongCloudUITestsLaunchTests.swift */,
 			);
 			path = MySongCloudUITests;
+			sourceTree = "<group>";
+		};
+		4B7BF54F287103AD00BACA95 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4B7BF5522871047300BACA95 /* HomeView.swift */,
+				4B7BF5542871051500BACA95 /* SongListView.swift */,
+				4B7BF5572871084900BACA95 /* StudioView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4B7BF550287103B400BACA95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4B7BF551287103B900BACA95 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +290,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7BF5582871084900BACA95 /* StudioView.swift in Sources */,
+				4B7BF5532871047300BACA95 /* HomeView.swift in Sources */,
 				4B7BF5282871038A00BACA95 /* ContentView.swift in Sources */,
 				4B7BF5262871038A00BACA95 /* MySongCloudApp.swift in Sources */,
+				4B7BF5552871051500BACA95 /* SongListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
