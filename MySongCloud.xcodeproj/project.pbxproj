@@ -17,8 +17,8 @@
 		4B7BF5532871047300BACA95 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5522871047300BACA95 /* HomeView.swift */; };
 		4B7BF5552871051500BACA95 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5542871051500BACA95 /* SongListView.swift */; };
 		4B7BF5582871084900BACA95 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5572871084900BACA95 /* StudioView.swift */; };
-		4BE0A7D9289518BB004AE4A9 /* AudioEngineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0A7D8289518BB004AE4A9 /* AudioEngineViewModel.swift */; };
 		4BE0A7DB28951C05004AE4A9 /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BE0A7DA28951C05004AE4A9 /* song.mp3 */; };
+		4BE0A7DD28953E3F004AE4A9 /* AudioEngineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0A7DC28953E3F004AE4A9 /* AudioEngineViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +52,8 @@
 		4B7BF5522871047300BACA95 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4B7BF5542871051500BACA95 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
 		4B7BF5572871084900BACA95 /* StudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioView.swift; sourceTree = "<group>"; };
-		4BE0A7D8289518BB004AE4A9 /* AudioEngineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AudioEngineViewModel.swift; path = MySongCloud/AudioEngineViewModel.swift; sourceTree = SOURCE_ROOT; };
 		4BE0A7DA28951C05004AE4A9 /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
+		4BE0A7DC28953E3F004AE4A9 /* AudioEngineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioEngineViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +104,8 @@
 		4B7BF5242871038A00BACA95 /* MySongCloud */ = {
 			isa = PBXGroup;
 			children = (
+				4BE0A7DE28953E48004AE4A9 /* ViewModels */,
 				4BE0A7DA28951C05004AE4A9 /* song.mp3 */,
-				4B7BF551287103B900BACA95 /* ViewModels */,
 				4B7BF550287103B400BACA95 /* Models */,
 				4B7BF54F287103AD00BACA95 /* Views */,
 				4B7BF5252871038A00BACA95 /* MySongCloudApp.swift */,
@@ -158,10 +158,10 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		4B7BF551287103B900BACA95 /* ViewModels */ = {
+		4BE0A7DE28953E48004AE4A9 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4BE0A7D8289518BB004AE4A9 /* AudioEngineViewModel.swift */,
+				4BE0A7DC28953E3F004AE4A9 /* AudioEngineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -300,7 +300,7 @@
 				4B7BF5582871084900BACA95 /* StudioView.swift in Sources */,
 				4B7BF5532871047300BACA95 /* HomeView.swift in Sources */,
 				4B7BF5282871038A00BACA95 /* ContentView.swift in Sources */,
-				4BE0A7D9289518BB004AE4A9 /* AudioEngineViewModel.swift in Sources */,
+				4BE0A7DD28953E3F004AE4A9 /* AudioEngineViewModel.swift in Sources */,
 				4B7BF5262871038A00BACA95 /* MySongCloudApp.swift in Sources */,
 				4B7BF5552871051500BACA95 /* SongListView.swift in Sources */,
 			);
