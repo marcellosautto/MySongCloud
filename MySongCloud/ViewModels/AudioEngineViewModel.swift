@@ -14,25 +14,28 @@ class AVAudio: ObservableObject{
     let playerNode: AVAudioPlayerNode
     var audioFile: AVAudioFile
     var audioBuffer: AVAudioPCMBuffer!
+    var rateAndPitchNode: AVAudioUnitTimePitch!
     var currentPlaybackTime: Double
     //var currentPlaybackTimeString: String
     var audioDuration: Double
     var audioDurationString: String
     
     var isPlaying: Bool = false
-    var isSeeking: Bool?
+    var isSeeking: Bool = false
     
-    init(engine: AVAudioEngine = AVAudioEngine(), playerNode:AVAudioPlayerNode = AVAudioPlayerNode(), audioFile: AVAudioFile = AVAudioFile()){
+    init(engine: AVAudioEngine = AVAudioEngine(), playerNode:AVAudioPlayerNode = AVAudioPlayerNode(), audioFile: AVAudioFile = AVAudioFile(), pitchNode: AVAudioUnitTimePitch = AVAudioUnitTimePitch()){
         
         self.engine = engine
         self.playerNode = playerNode
         self.audioFile = audioFile
+        self.rateAndPitchNode = pitchNode
         self.currentPlaybackTime = 0
         //self.currentPlaybackTimeString = "00:00"
         self.audioDuration = 0
         self.audioDurationString = "00:00"
         
         cfgAudio()
+        
         
     }
     
@@ -58,7 +61,7 @@ class AVAudio: ObservableObject{
             let audioFrameCount = UInt32(audioFile.length)
             audioBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: audioFrameCount)
             try audioFile.read(into: audioBuffer)
-            audioDuration = calcSongDuration()
+
         }catch{
             print("Error initializing audio buffer: \(error.localizedDescription)")
         }
@@ -68,12 +71,16 @@ class AVAudio: ObservableObject{
     func cfgEngine(with format: AVAudioFormat){
         
         engine.attach(playerNode)
+        engine.attach(rateAndPitchNode)
         
-        engine.connect(playerNode, to: engine.outputNode, format: format)
+        engine.connect(playerNode, to: rateAndPitchNode, format: format)
+        engine.connect(rateAndPitchNode, to: engine.outputNode, format: format)
         
         engine.prepare()
         
         do{
+            audioDuration = calcSongDuration()
+            audioDurationString = formattedTime(time: audioDuration)
             try engine.start()
             playerNode.scheduleBuffer(audioBuffer, at: nil, completionHandler: nil)
             
@@ -90,17 +97,17 @@ class AVAudio: ObservableObject{
         return Double(frameLength) / sampleRate
     }
     
-    func getTimeInSeconds()->TimeInterval{
+    func getTimeInSeconds() -> TimeInterval{
         
         if let nodeTime = playerNode.lastRenderTime,let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return Double(playerTime.sampleTime) / playerTime.sampleRate
+            return currentPlaybackTime+(Double(playerTime.sampleTime) / playerTime.sampleRate)
         }
         return 0
     }
     
     func formattedTime(time: Double) -> String{
         
-        let timeInSeconds = getTimeInSeconds()
+        let timeInSeconds = time
         
         let minutes = timeInSeconds / 60
         let seconds = timeInSeconds.truncatingRemainder(dividingBy: 60.0)
@@ -130,6 +137,50 @@ class AVAudio: ObservableObject{
     
     func stop(){
         playerNode.stop()
+    }
+    
+    func seekTo(time: Double){
+        
+        var seekFrame = AVAudioFramePosition(time*audioFile.processingFormat.sampleRate)
+        
+        let wasPlaying = playerNode.isPlaying
+        
+        playerNode.stop()
+        
+       
+        currentPlaybackTime = (Double(seekFrame) / Double(audioFile.length))*audioDuration
+
+        if(seekFrame < 0 || seekFrame >= audioFile.length){
+            seekFrame = 0
+        }
+        
+        let frameCount = AVAudioFrameCount(audioFile.length - seekFrame)
+        
+        
+          // 3
+          playerNode.scheduleSegment(
+            audioFile,
+            startingFrame: seekFrame,
+            frameCount: frameCount,
+            at: nil
+          ) {
+            //self.needsFileScheduled = true
+          }
+
+          // 4
+          if wasPlaying {
+              playerNode.play()
+          }
+        
+    }
+    
+    func setRate(to rate: Float){
+        rateAndPitchNode.rate = rate
+
+    }
+    
+    func setPitch(to pitch: Float){
+        rateAndPitchNode.pitch = pitch
     }
 }
 
