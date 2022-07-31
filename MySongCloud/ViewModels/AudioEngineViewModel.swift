@@ -118,19 +118,19 @@ class AVAudio: ObservableObject{
         return "\(minutesFormatted):\(secondsFormatted)"
     }
     
-    func togglePlaybackState() -> PlaybackState{
+    func togglePlaybackState() -> String{
         
         self.isPlaying.toggle()
         
         if(playerNode.isPlaying){
             
             playerNode.pause()
-            return PlaybackState.play
+            return PlaybackState.play.state
         }
         else{
             
             playerNode.play()
-            return PlaybackState.pause
+            return PlaybackState.pause.state
         }
         
     }

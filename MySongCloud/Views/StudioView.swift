@@ -10,7 +10,7 @@ import SwiftUI
 struct StudioView: View {
     
     @StateObject var avAudio = AVAudio()
-    @State private var playbackState: AVAudio.PlaybackState = .play
+    @State private var playbackState: String = AVAudio.PlaybackState.play.state
     @State private var currentPlaybackTime: Double = 0
     @State private var currentPlaybackRate: Float = 1
     @State private var currentPitch: Float = 0
@@ -19,41 +19,12 @@ struct StudioView: View {
         VStack{
             Text("Studio")
                 .font(.title)
-            
-            HStack{
-                Button(action: {playbackState = avAudio.togglePlaybackState()}){
-                    Image(systemName: "\(playbackState)")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .aspectRatio(contentMode: .fit)
-                }
-                
-                
-                //                Button(action: {avAudio.stop()}){
-                //                    Image(systemName: "stop")
-                //                        .resizable()
-                //                        .frame(width: 50, height: 50)
-                //                        .aspectRatio(contentMode: .fit)
-                //                }
-            }
-            
             VStack {
-                Slider(
-                    value: $currentPlaybackTime,
-                    in: 0...avAudio.audioDuration,
-                    step: 1
-                ) {
-                    Text("Speed")
-                } minimumValueLabel: {
-                    Text("\(avAudio.formattedTime(time: currentPlaybackTime))")
-                } maximumValueLabel: {
-                    Text("\(avAudio.audioDurationString)")
-                } onEditingChanged: { seeking in
-                    avAudio.isSeeking = seeking
-                    avAudio.seekTo(time: currentPlaybackTime)
-                }
-                //Text("\(currentPlaybackTime)")
-                
+
+                HStack {
+                    Text("Rate").bold()
+                    Spacer()
+                }.padding(.leading)
                 Slider(
                     value: $currentPlaybackRate,
                     in: 0.5...2.0,
@@ -67,8 +38,15 @@ struct StudioView: View {
                 } onEditingChanged: { seeking in
                     avAudio.isSeeking = seeking
                     avAudio.setRate(to: currentPlaybackRate)
-                }
+                }.padding()
                 Text("\(currentPlaybackRate, specifier: "%.1f")")
+                
+                
+                
+                HStack {
+                    Text("Pitch").bold()
+                    Spacer()
+                }.padding(.leading)
                 
                 Slider(
                     value: $currentPitch,
@@ -83,17 +61,67 @@ struct StudioView: View {
                 } onEditingChanged: { seeking in
                     avAudio.isSeeking = seeking
                     avAudio.setPitch(to: currentPitch*100)
-                }
-                Text("\(currentPitch, specifier: "%.0f")")
+                }.padding()
+                Text("\(currentPitch > 0 ? "+" : "")\(currentPitch, specifier: "%.0f")")
                 
+                
+            }.padding(.top)
+            
+            VStack {
+                Spacer()
+                HStack{
+                    Button(action: {playbackState = avAudio.togglePlaybackState()}){
+                        Image(systemName: "\(playbackState)")
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    
+                    //                Button(action: {avAudio.stop()}){
+                    //                    Image(systemName: "stop")
+                    //                        .resizable()
+                    //                        .frame(width: 50, height: 50)
+                    //                        .aspectRatio(contentMode: .fit)
+                    //                }
+                }
+            
+            
+            
+            Slider(
+                value: $currentPlaybackTime,
+                in: 0...avAudio.audioDuration,
+                step: 1
+            ) {
+                Text("Speed")
+            } minimumValueLabel: {
+                Text("\(avAudio.formattedTime(time: currentPlaybackTime))")
+            } maximumValueLabel: {
+                Text("\(avAudio.audioDurationString)")
+            } onEditingChanged: { seeking in
+                avAudio.isSeeking = seeking
+                avAudio.seekTo(time: currentPlaybackTime)
+            }.padding()
+            //Text("\(currentPlaybackTime)")
+            
+            Spacer()
             }
             
         }
         .onAppear(){
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
                 
-                if(!avAudio.isSeeking){
-                    currentPlaybackTime = avAudio.getTimeInSeconds()
+                if(!avAudio.isSeeking && avAudio.playerNode.isPlaying){
+                    
+                    let currentTime = avAudio.getTimeInSeconds()
+                    
+                    if(currentTime < avAudio.audioDuration){
+                        currentPlaybackTime = currentTime
+                    }
+                    else{
+                        avAudio.seekTo(time: 0)
+                        playbackState = avAudio.togglePlaybackState()
+                    }
                 }
                 
             })
