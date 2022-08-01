@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1520C728988843003A81C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1520C628988843003A81C3 /* Response.swift */; };
+		4B1F96192897218F0035666C /* JSAPIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1F96182897218F0035666C /* JSAPIViewModel.swift */; };
+		4B1F961B289721EC0035666C /* SongListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1F961A289721EC0035666C /* SongListViewModel.swift */; };
+		4B1F9622289856930035666C /* FetchSong.js in Resources */ = {isa = PBXBuildFile; fileRef = 4B1F9621289856930035666C /* FetchSong.js */; };
+		4B1F96242898754A0035666C /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1F96232898754A0035666C /* Song.swift */; };
 		4B7BF5262871038A00BACA95 /* MySongCloudApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5252871038A00BACA95 /* MySongCloudApp.swift */; };
 		4B7BF5282871038A00BACA95 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7BF5272871038A00BACA95 /* ContentView.swift */; };
 		4B7BF52A2871038C00BACA95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B7BF5292871038C00BACA95 /* Assets.xcassets */; };
@@ -39,6 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B1520C628988843003A81C3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		4B1520C828988F2F003A81C3 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ViewModels/Secrets.xcconfig; sourceTree = "<group>"; };
+		4B1520C928989BF3003A81C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4B1F96182897218F0035666C /* JSAPIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSAPIViewModel.swift; sourceTree = "<group>"; };
+		4B1F961A289721EC0035666C /* SongListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewModel.swift; sourceTree = "<group>"; };
+		4B1F9621289856930035666C /* FetchSong.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = FetchSong.js; sourceTree = "<group>"; };
+		4B1F96232898754A0035666C /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		4B7BF5222871038A00BACA95 /* MySongCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySongCloud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B7BF5252871038A00BACA95 /* MySongCloudApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySongCloudApp.swift; sourceTree = "<group>"; };
 		4B7BF5272871038A00BACA95 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +93,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4B1F9620289856670035666C /* JavaScript */ = {
+			isa = PBXGroup;
+			children = (
+				4B1F9621289856930035666C /* FetchSong.js */,
+			);
+			path = JavaScript;
+			sourceTree = "<group>";
+		};
 		4B7BF5192871038900BACA95 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +124,9 @@
 		4B7BF5242871038A00BACA95 /* MySongCloud */ = {
 			isa = PBXGroup;
 			children = (
+				4B1520C928989BF3003A81C3 /* Info.plist */,
+				4B1520C828988F2F003A81C3 /* Secrets.xcconfig */,
+				4B1F9620289856670035666C /* JavaScript */,
 				4BE0A7DE28953E48004AE4A9 /* ViewModels */,
 				4BE0A7DA28951C05004AE4A9 /* song.mp3 */,
 				4B7BF550287103B400BACA95 /* Models */,
@@ -154,6 +177,8 @@
 		4B7BF550287103B400BACA95 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4B1F96232898754A0035666C /* Song.swift */,
+				4B1520C628988843003A81C3 /* Response.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				4BE0A7DC28953E3F004AE4A9 /* AudioEngineViewModel.swift */,
+				4B1F96182897218F0035666C /* JSAPIViewModel.swift */,
+				4B1F961A289721EC0035666C /* SongListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -270,6 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1F9622289856930035666C /* FetchSong.js in Resources */,
 				4B7BF52D2871038C00BACA95 /* Preview Assets.xcassets in Resources */,
 				4B7BF52A2871038C00BACA95 /* Assets.xcassets in Resources */,
 				4BE0A7DB28951C05004AE4A9 /* song.mp3 in Resources */,
@@ -297,8 +325,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B1F96242898754A0035666C /* Song.swift in Sources */,
 				4B7BF5582871084900BACA95 /* StudioView.swift in Sources */,
+				4B1F961B289721EC0035666C /* SongListViewModel.swift in Sources */,
 				4B7BF5532871047300BACA95 /* HomeView.swift in Sources */,
+				4B1520C728988843003A81C3 /* Response.swift in Sources */,
+				4B1F96192897218F0035666C /* JSAPIViewModel.swift in Sources */,
 				4B7BF5282871038A00BACA95 /* ContentView.swift in Sources */,
 				4BE0A7DD28953E3F004AE4A9 /* AudioEngineViewModel.swift in Sources */,
 				4B7BF5262871038A00BACA95 /* MySongCloudApp.swift in Sources */,
@@ -341,6 +373,7 @@
 /* Begin XCBuildConfiguration section */
 		4B7BF5442871038C00BACA95 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B1520C828988F2F003A81C3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -401,6 +434,7 @@
 		};
 		4B7BF5452871038C00BACA95 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B1520C828988F2F003A81C3 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -464,6 +498,7 @@
 				DEVELOPMENT_TEAM = U6W3FKT977;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MySongCloud/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -493,6 +528,7 @@
 				DEVELOPMENT_TEAM = U6W3FKT977;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MySongCloud/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

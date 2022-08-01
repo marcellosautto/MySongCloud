@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct SongListView: View {
+    
+    //var sampleSearch = "industry baby"
+    @StateObject var SongListVM = SongListViewModel()
+    
     var body: some View {
         NavigationView{
             VStack {
                 Text("My Songs")
                     .font(.title)
+                
+                Button(action: {}){
+                    Text("Get Songs")
+                }
                 
                 Spacer()
             }
