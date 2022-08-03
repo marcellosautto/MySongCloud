@@ -10,28 +10,39 @@ import SwiftUI
 struct SongListView: View {
     
     //var sampleSearch = "industry baby"
-    @StateObject var SongListVM = SongListViewModel()
+    @StateObject var songListVM = SongListViewModel()
+    @State var isPresentingAddSongView: Bool = false
     
     var body: some View {
-        NavigationView{
+        //NavigationView{
             VStack {
                 Text("My Songs")
                     .font(.title)
                 
-                Button(action: {}){
-                    Text("Get Songs")
-                }
-                
+                Button("Search", action: {isPresentingAddSongView = true})
                 Spacer()
             }
-            .toolbar{
-                ToolbarItem(placement: .confirmationAction){
-                    Button(action: {}, label: {
-                        Label("", systemImage: "plus")
-                    })
+            .sheet(isPresented: $isPresentingAddSongView){
+                NavigationView{
+                    AddSongView()
+                        .environmentObject(songListVM)
+                        .toolbar{
+                            ToolbarItem(placement: .cancellationAction){
+                                Button(action: {
+                                    isPresentingAddSongView = false
+                                    songListVM.response = nil
+                                }, label: {
+                                    Text("Back")
+                                })
+                            }
+                            
+                        }
                 }
+                
+                
             }
-        }
+        //}
+
         
     }
 }

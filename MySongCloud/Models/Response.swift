@@ -9,7 +9,8 @@ import Foundation
 
 struct Response: Decodable {
     
-    var items: [Song]?
+    var id: UUID = UUID()
+    var songs: [Song] = []
     
     enum CodingKeys: String, CodingKey{
         
@@ -22,6 +23,6 @@ struct Response: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         //decode json into Array of songs
-        self.items = try container.decode([Song].self, forKey: .items)
+        self.songs = try container.decode([Song].self, forKey: .items)
     }
 }

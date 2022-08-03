@@ -7,11 +7,13 @@
 
 import Foundation
 
-struct Song: Decodable{
+struct Song: Identifiable, Decodable{
     
-    var videoId: String
+    let id: UUID = UUID()
+    
+    var url: URL
     var title: String
-    var thumbnail: String
+    var thumbnail: URL
     var thumbnail_width: Int
     var thumbnail_height: Int
     
@@ -41,7 +43,8 @@ struct Song: Decodable{
         let snippetContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .snippet)
         
         //Parse videoId
-        self.videoId = try idContainer.decode(String.self, forKey: .videoId)
+        let videoId = try idContainer.decode(String.self, forKey: .videoId)
+        self.url = URL(string: "https://www.youtube.com/watch?v=\(videoId)")!
         
         //Parse title
         self.title = try snippetContainer.decode(String.self, forKey: .title)
@@ -50,7 +53,8 @@ struct Song: Decodable{
         let thumbnailContainer = try snippetContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .thumbnails)
         let highContainer = try thumbnailContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .high)
         
-        self.thumbnail = try highContainer.decode(String.self, forKey: .thumbnail)
+        let thumbnail_string = try highContainer.decode(String.self, forKey: .thumbnail)
+        self.thumbnail = URL(string: thumbnail_string)!
         
         //Parse thumbnail_width
         self.thumbnail_width = try highContainer.decode(Int.self, forKey: .thumbnail_width)
