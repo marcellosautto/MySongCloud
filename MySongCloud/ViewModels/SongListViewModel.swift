@@ -15,6 +15,42 @@ class SongListViewModel: ObservableObject{
         
     }
     
+    func convertURLtoMP3(url: String) {
+        let API_URL = "https://convert2mp3s.com/api/single/mp3?url=\(url)"
+        
+        let dataTaskURL = URL(string: API_URL)
+        
+        guard dataTaskURL != nil else {return}
+        
+        let session = URLSession.shared
+        
+        let dataTask = session.dataTask(with: dataTaskURL!) { [weak self] (data, response, err) in
+            
+            if err != nil || data == nil {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                do{
+                    
+//                    self?.response = nil
+//                    let decoder = JSONDecoder()
+//                    self?.response = try decoder.decode(Response.self, from: data!)
+                    
+                    
+                }catch{
+                    
+                    print("Error: \(error)")
+                }
+            }
+                
+            
+        }
+        dataTask.resume()
+        
+        
+    }
+    
     func getSongs(search: String){
         
         let search_encoded = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
