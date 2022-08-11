@@ -14,9 +14,9 @@ class AVAudio: ObservableObject{
     let playerNode: AVAudioPlayerNode
     var audioFile: AVAudioFile
     var audioBuffer: AVAudioPCMBuffer!
+    var equalizer: AVAudioUnitEQ!
     var rateAndPitchNode: AVAudioUnitTimePitch!
     var currentPlaybackTime: Double
-    //var currentPlaybackTimeString: String
     var audioDuration: Double
     var audioDurationString: String
     
@@ -30,7 +30,6 @@ class AVAudio: ObservableObject{
         self.audioFile = audioFile
         self.rateAndPitchNode = pitchNode
         self.currentPlaybackTime = 0
-        //self.currentPlaybackTimeString = "00:00"
         self.audioDuration = 0
         self.audioDurationString = "00:00"
         
@@ -52,7 +51,28 @@ class AVAudio: ObservableObject{
         let audioFileFormat = audioFile.processingFormat
         
         cfgBuffer(with: audioFileFormat)
+        cfgEqualizer()
         cfgEngine(with: audioFileFormat)
+    }
+    
+    func cfgEqualizer(){
+        equalizer = AVAudioUnitEQ(numberOfBands: 3)
+        let bands = equalizer.bands
+        let freqs = [100, 1000, 10000]
+        
+        for i in 0...(bands.count - 1) {
+            bands[i].frequency  = Float(freqs[i])
+            bands[i].bypass     = false
+            bands[i].filterType = .parametric
+        }
+
+        bands[0].gain = -10.0
+        bands[0].filterType = .lowShelf
+        bands[1].gain = -10.0
+        bands[1].filterType = .lowShelf
+        bands[2].gain = 10.0
+        bands[2].filterType = .highShelf
+        
     }
     
     func cfgBuffer(with format: AVAudioFormat){
@@ -72,9 +92,11 @@ class AVAudio: ObservableObject{
         
         engine.attach(playerNode)
         engine.attach(rateAndPitchNode)
+        engine.attach(equalizer)
         
         engine.connect(playerNode, to: rateAndPitchNode, format: format)
-        engine.connect(rateAndPitchNode, to: engine.outputNode, format: format)
+        engine.connect(rateAndPitchNode, to: equalizer, format: format)
+        engine.connect(equalizer, to: engine.outputNode, format: format)
         
         engine.prepare()
         
@@ -181,6 +203,110 @@ class AVAudio: ObservableObject{
     
     func setPitch(to pitch: Float){
         rateAndPitchNode.pitch = pitch
+    }
+    
+    func setBass(to freq: Float){
+        
+        var hz = freq
+        
+        switch hz {
+            
+        case -5:
+            hz = 200
+        case -4:
+            hz = 186
+        case -3:
+            hz = 172
+        case -2:
+            hz = 158
+        case -1:
+            hz = 144
+        case 0:
+            hz = 116
+        case 1:
+            hz = 102
+        case 2:
+            hz = 88
+        case 3:
+            hz = 74
+        case 4:
+            hz = 60
+        case 5:
+            hz = 46
+        default:
+            hz = 116
+        }
+        equalizer.bands[0].frequency = hz
+    }
+    
+    func setMiddle(to freq: Float){
+        
+        var hz = freq
+        
+        switch hz {
+            
+        case -5:
+            hz = 2000
+        case -4:
+            hz = 1860
+        case -3:
+            hz = 1720
+        case -2:
+            hz = 1580
+        case -1:
+            hz = 1440
+        case 0:
+            hz = 1160
+        case 1:
+            hz = 1020
+        case 2:
+            hz = 880
+        case 3:
+            hz = 740
+        case 4:
+            hz = 600
+        case 5:
+            hz = 460
+        default:
+            hz = 1160
+        }
+        
+        equalizer.bands[1].frequency = freq
+    }
+    
+    func setTreble(to freq: Float){
+        
+        var hz = freq
+        
+        switch hz {
+            
+        case -5:
+            hz = 10000
+        case -4:
+            hz = 9500
+        case -3:
+            hz = 9000
+        case -2:
+            hz = 8500
+        case -1:
+            hz = 8000
+        case 0:
+            hz = 7500
+        case 1:
+            hz = 7000
+        case 2:
+            hz = 6500
+        case 3:
+            hz = 6000
+        case 4:
+            hz = 5500
+        case 5:
+            hz = 5000
+        default:
+            hz = 7500
+        }
+        
+        equalizer.bands[2].frequency = freq
     }
 }
 
